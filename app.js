@@ -1,14 +1,16 @@
 const express = require('express')
+var expressLayouts = require('express-ejs-layouts');
 const app = express()
 const port = 3000
 
 //menggunakan ejs
 app.set('view engine','ejs')
+app.use(expressLayouts);
+
+app.set('layout', 'layout/layout');
 
 //untuk halaman index
 app.get('/', (req, res) => {
-  // const name = req.query.nama
-  // const name = "Eldra Surya P"
   cont = [
     {
       name :'ESP',
@@ -34,17 +36,15 @@ app.get('/', (req, res) => {
 
 //untuk halaman about
 app.get('/about', (req, res) => {
-    res.sendFile('./about.html',{root:__dirname})
+    res.render('about',{ title:'About Page'})
 })
 
 //untuk halaman contact
 app.get('/contact', (req, res) => {
-    res.sendFile('./contact.html',{root:__dirname})
+     res.render('contact',{ title:'Contact Page'})
 })
 
 app.get('/product/:id', (req, res) => {
-    // res.send('product id: ' + req.params.id + '<br></br>'
-    // + 'category id : ' + req.params.idCat)
     res.send(`product id: ${req.params.id} <br> category id : ${ req.query.category}`)
 })
 

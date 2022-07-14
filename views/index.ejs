@@ -1,28 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= title %></title>
-</head>
-<body>
+<%- contentFor('Content') %>
+
     <h1>Hello world</h1>
     <p>Welcome to my page <%= nama %></p>
-
-    <ul>
-        <li><a href="./about">about</a><br></li>
-        <li> <a href="./contact">Contact</a></li>
-    </ul>
-    
+ 
+    <!-- menampilkan contact list -->
     <h3>Contact List</h3>
-    <% cont.forEach( con => { %>
-        <ul>
-            <li>Nama :<%= con.name %> </li>
-            <li>Email:<%= con.email %> </li>
-        </ul>
-    <% }) %>
-    
-    
-</body>
-</html>
+    <% if (cont.length == 0) { %>
+        <b>Contact kosong</b>
+    <% }else{ %>  
+        <% cont.forEach( (con,index) => { %>
+            <ul>
+                <i>Kontak ke - <%= index+1 %></i>
+                <li>Nama :<%= con.name %> </li>
+                <li>Email:<%= con.email %> </li>
+            </ul>
+        <% }) %>
+    <% } %> 
