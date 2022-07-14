@@ -1,13 +1,29 @@
 const express = require('express')
 var expressLayouts = require('express-ejs-layouts');
+var morgan = require('morgan')
 const app = express()
 const port = 3000
+
+//menjalankan morgan
+app.use(morgan('dev'))
 
 //menggunakan ejs
 app.set('view engine','ejs')
 app.use(expressLayouts);
 
+//menggunakan layout yg ini
 app.set('layout', 'layout/layout');
+
+//Mengizinkan file gambar diakses
+app.use(express.static('public'))
+
+app.use((req, res, next) => {
+  console.log('Time:', Date.now())
+  next()
+})
+
+
+
 
 //untuk halaman index
 app.get('/', (req, res) => {
@@ -34,9 +50,11 @@ app.get('/', (req, res) => {
   })
 })
 
+
 //untuk halaman about
 app.get('/about', (req, res) => {
     res.render('about',{ title:'About Page'})
+
 })
 
 //untuk halaman contact
@@ -53,53 +71,6 @@ app.use('/', (req, res) => {
   res.send('Not found')
 })
 
-// app.use((req, res, next) => {
-//   console.log('Time:', Date.now())
-//   next()
-// })
-
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
-
-
-// const fs   = require('fs');
-// const http = require('http')
-// const port = 3000
-
-// //fungsi untuk membuka suatu file
-// const openFile = (path,res) => {
-//     fs.readFile(path,(err,data)=>{
-//         if (err) {
-//             res.writeHead(404)
-//             res.write('Error : page not found')          
-//         }else{
-//             res.write(data)
-//         }
-//         res.end()
-//     })
-// }
-
-// http
-//     .createServer((req,res)=>{
-//         const url = req.url
-//         console.log(url);
-//         res.writeHead(200,{
-//             'Content-Type':'text/html'
-//         }) 
-       
-//         if (url==='/about') {
-//             //Membuka file html about 
-//             openFile('./about.html',res)
-//         }else if (url==='/contact') {
-//              //Membuka file html contact
-//             openFile('./contact.html',res)
-//         }else {
-//              //Membuka file html index jika url yang dicari tidak ada 
-//             openFile('./index.html',res)
-//         }
-
-// })
-//     .listen(3000,()=>{
-//         console.log('Server is listening on port 3000');
-//     })
