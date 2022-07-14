@@ -1,11 +1,8 @@
 const express = require('express')
 var expressLayouts = require('express-ejs-layouts');
-var morgan = require('morgan')
+
 const app = express()
 const port = 3000
-
-//menjalankan morgan
-app.use(morgan('dev'))
 
 //menggunakan ejs
 app.set('view engine','ejs')
